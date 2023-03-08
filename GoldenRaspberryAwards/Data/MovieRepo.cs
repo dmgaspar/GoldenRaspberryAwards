@@ -1,4 +1,6 @@
-﻿namespace GoldenRaspberryAwards.Data
+﻿using GoldenRaspberryAwards.Models;
+
+namespace GoldenRaspberryAwards.Data
 {
     public class MovieRepo : IMovieRepo
     {
@@ -10,7 +12,12 @@
         }
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            return (_context.SaveChanges() >=0);
+        }
+
+        IEnumerable<Movie> IMovieRepo.GetAllMovies()
+        {
+            return _context.Movies.ToList();
         }
     }
 }
