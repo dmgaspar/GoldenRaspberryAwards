@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GoldenRaspberryAwards.Data;
 using GoldenRaspberryAwards.Dto;
+using GoldenRaspberryAwards.Service;
+using GoldenRaspberryAwards.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoldenRaspberryAwards.Controllers
@@ -9,12 +11,13 @@ namespace GoldenRaspberryAwards.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly IMovieRepo _repository;
+        private readonly IMovieService _movieService;
         private readonly IMapper _mapper;
 
-        public MoviesController(IMovieRepo movieRepo, IMapper mapper)
+
+        public MoviesController(IMovieService movieService, IMapper mapper)
         {
-            _repository = movieRepo;
+            _movieService = movieService;
             _mapper = mapper;
         }
 
@@ -23,10 +26,20 @@ namespace GoldenRaspberryAwards.Controllers
         public ActionResult<IEnumerable<MovieReadDto>> GetMovies()
         {
 
-            var movieItems = _repository.GetAllMovies();
+            var movieItems = _movieService.GetAllMovies();
 
             return Ok(_mapper.Map<IEnumerable<MovieReadDto>>(movieItems));
         }
-            
+        [HttpGet]
+        [Route("awards")]
+        public ActionResult<IEnumerable<MovieReadDto>> GetAwards()
+        {
+
+            var movieItems = _movieService.GetAllAwards();
+
+
+            return Ok(movieItems);
+        }
+
     }
 }
