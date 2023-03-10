@@ -23,8 +23,6 @@ namespace GoldenRaspberryAwards.Data
             {
                 List<CsvMovie> csvMovies = new List<CsvMovie>();
 
-                Console.WriteLine("--> Seeding Data...");
-
                 try
                 {
                     csvMovies = ReadCsvMovieList();
@@ -33,11 +31,6 @@ namespace GoldenRaspberryAwards.Data
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                }
-
-                foreach (CsvMovie details in csvMovies)
-                {
-                    Console.WriteLine(details.Year + " <=> " + details.Title + " <=> " + details.Studio + " <=> " + details.Producers + " <=> " + details.Winner);
                 }
 
                 context.SaveChanges();

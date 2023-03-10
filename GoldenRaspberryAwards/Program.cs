@@ -1,10 +1,5 @@
-using CsvHelper.Configuration;
-using CsvHelper;
 using GoldenRaspberryAwards.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Globalization;
-using GoldenRaspberryAwards.Models;
 using GoldenRaspberryAwards.Service;
 
 namespace GoldenRaspberryAwards
@@ -20,6 +15,7 @@ namespace GoldenRaspberryAwards
             // Add services to the container.
 
             builder.Services.AddScoped<IMovieRepo, MovieRepo>();
+
             builder.Services.AddScoped<IMovieService, MovieService>();
 
             builder.Services.AddControllers();

@@ -23,7 +23,6 @@ namespace GoldenRaspberryAwards.Service
             return FindMinMaxInternalProducer(awards);
         }
 
-
         public IEnumerable<Movie> GetAllMovies()
         {
             return _moveRepository.GetAllMovies();
@@ -33,7 +32,6 @@ namespace GoldenRaspberryAwards.Service
         {
             return _moveRepository.SaveChanges();
         }
-
 
         private List<AwardViewModel> ExtractProducerAwardsIntervals(List<Movie> movies)
         {
@@ -45,7 +43,7 @@ namespace GoldenRaspberryAwards.Service
 
             List<AwardViewModel> awards = new List<AwardViewModel>();
 
-            AwardViewModel temp = new AwardViewModel();
+            AwardViewModel tempAward = new AwardViewModel();
 
             var sortedList = movies.OrderBy(p => p.Producers).ToList();
 
@@ -55,7 +53,7 @@ namespace GoldenRaspberryAwards.Service
                 {
                     if (producerCount > 0)
                     {
-                        awards.Add(temp);
+                        awards.Add(tempAward);
                     }
                     curProducer = movie.Producers;
                     beginYear = movie.Year;
@@ -66,7 +64,7 @@ namespace GoldenRaspberryAwards.Service
                     endYear = movie.Year;
                     curInterval = endYear - beginYear;
 
-                    temp = new AwardViewModel
+                    tempAward = new AwardViewModel
                     {
                         Producer = movie.Producers,
                         Interval = curInterval,
@@ -91,12 +89,12 @@ namespace GoldenRaspberryAwards.Service
             {
                 if(i == 0)
                 {
-                    interval = awards[i].Interval;
-                    producerAwardInterval.Min.Add(awards[i]);
+                    interval = sortedList[i].Interval;
+                    producerAwardInterval.Min.Add(sortedList[i]);
                 }
-                else if (interval == awards[i].Interval)
+                else if (interval == sortedList[i].Interval)
                 {
-                    producerAwardInterval.Min.Add(awards[i]);
+                    producerAwardInterval.Min.Add(sortedList[i]);
                 }
                 else
                 {
@@ -108,19 +106,18 @@ namespace GoldenRaspberryAwards.Service
             {
                 if (i == sortedList.Count - 1)
                 {
-                    interval = awards[i].Interval;
-                    producerAwardInterval.Max.Add(awards[i]);
+                    interval = sortedList[i].Interval;
+                    producerAwardInterval.Max.Add(sortedList[i]);
                 }
-                else if (interval == awards[i].Interval)
+                else if (interval == sortedList[i].Interval)
                 {
-                    producerAwardInterval.Max.Add(awards[i]);
+                    producerAwardInterval.Max.Add(sortedList[i]);
                 }
                 else
                 {
                     break;
                 }
             }
-
             return producerAwardInterval;
         }
     }
