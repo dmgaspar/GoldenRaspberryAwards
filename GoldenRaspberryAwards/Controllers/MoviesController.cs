@@ -32,11 +32,9 @@ namespace GoldenRaspberryAwards.Controllers
         }
         [HttpGet]
         [Route("awards")]
-        public ActionResult<IEnumerable<MovieReadDto>> GetAwards()
+        public ActionResult<ProducerAwardIntervalViewModel> GetAwards()
         {
-
             var movieItems = _movieService.GetAllAwards();
-
 
             return Ok(movieItems);
         }

@@ -8,7 +8,6 @@ namespace GoldenRaspberryAwards.Service
         IEnumerable<Movie> GetAllMovies();
         bool SaveChanges();
 
-        IEnumerable<AwardViewModel> GetAllAwards();
-
+        ProducerAwardIntervalViewModel GetAllAwards();
     }
 }
